@@ -1,4 +1,3 @@
-#ifdef USE_LMDB
 #ifndef CAFFE_UTIL_DB_LMDB_HPP
 #define CAFFE_UTIL_DB_LMDB_HPP
 
@@ -98,4 +97,3 @@ class LMDB : public DB {
 }  // namespace db
 }  // namespace caffe
 #endif  // CAFFE_UTIL_DB_LMDB_HPP
-#endif  // USE_LMDB

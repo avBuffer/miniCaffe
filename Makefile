@@ -2,7 +2,6 @@ PROJECT := caffe
 
 # uncomment to disable IO dependencies and corresponding data layers
 USE_OPENCV := 1
-USE_LMDB := 0
 
 # BLAS choice:
 # atlas for ATLAS (default)
