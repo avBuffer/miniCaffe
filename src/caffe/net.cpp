@@ -734,7 +734,6 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string& trained_filename) { CopyTrainedLayersFromBinaryProto(trained_filename); }
 
-
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFromBinaryProto(const string& trained_filename) {
   NetParameter param;
@@ -769,9 +768,9 @@ void Net<Dtype>::ClearParamDiffs() {
   for (int i = 0; i < learnable_params_.size(); ++i) {
     Blob<Dtype>* blob = learnable_params_[i];
     switch (Caffe::mode()) {
-    case Caffe::CPU:
-      caffe_set(blob->count(), static_cast<Dtype>(0), blob->mutable_cpu_diff());
-      break;
+      case Caffe::CPU:
+        caffe_set(blob->count(), static_cast<Dtype>(0), blob->mutable_cpu_diff());
+        break;
     }
   }
 }

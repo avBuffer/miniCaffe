@@ -61,7 +61,6 @@ class InfogainLossLayer : public LossLayer<Dtype> {
    * so this method ignores bottom[1] and requires !propagate_down[1], crashing
    * if propagate_down[1] is set. (The same applies to the infogain matrix, if
    * provided as bottom[2] rather than in the layer_param.)
-   *
    * @param top output Blob vector (length 1), providing the error gradient with respect to the outputs
    *   -# @f$ (1 \times 1 \times 1 \times 1) @f$
    *      This Blob's diff will simply contain the loss_weight* @f$ \lambda @f$,

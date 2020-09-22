@@ -3,7 +3,8 @@
 #include <string>
 
 
-namespace caffe { namespace db {
+namespace caffe {
+namespace db {
 
 void LMDB::Open(const string& source, Mode mode) {
   MDB_CHECK(mdb_env_create(&mdb_env_));

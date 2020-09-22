@@ -13,14 +13,14 @@ namespace caffe {
  * This layer computes Batch Normalization as described in [1]. For each channel in the data (i.e. axis 1), 
  * it subtracts the mean and divides by the variance, where both statistics are computed across both spatial dimensions 
  * and across the different examples in the batch.
- *
+
  * By default, during training time, the network is computing global
  * mean/variance statistics via a running average, which is then used at test
  * time to allow deterministic outputs for each input. You can manually toggle
  * whether the network is accumulating or using the statistics via the
  * use_global_stats option. For reference, these statistics are kept in the
  * layer's three blobs: (0) mean, (1) variance, and (2) moving average factor.
- *
+
  * Note that the original paper also included a per-channel learned bias and scaling factor.
  * To implement this in Caffe, define a `ScaleLayer` configured with `bias_term: true` 
  * after each `BatchNormLayer` to handle both the bias and scaling factor.

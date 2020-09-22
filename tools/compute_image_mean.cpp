@@ -23,7 +23,6 @@ DEFINE_string(backend, "lmdb", "The backend {lmdb} containing the images");
 int main(int argc, char** argv) {
 #ifdef USE_OPENCV
   ::google::InitGoogleLogging(argv[0]);
-  // Print output to stderr (while still logging)
   FLAGS_alsologtostderr = 1;
 
 #ifndef GFLAGS_GFLAGS_H_
@@ -63,7 +62,7 @@ int main(int argc, char** argv) {
     sum_blob.add_data(0.);
   }
 
-  LOG(INFO) << "Starting iteration";
+  LOG(INFO) << "Starting Iteration";
   while (cursor->valid()) {
     Datum datum;
     datum.ParseFromString(cursor->value());

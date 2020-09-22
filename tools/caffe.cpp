@@ -93,8 +93,6 @@ vector<string> get_stages_from_flags() {
 
 
 // caffe commands to call by caffe <command> <args>
-// To add a command, define a function "int command()" and register it with RegisterBrewFunction(action);
-
 // Translate the signal effect the user specified on the command-line to the corresponding enumeration.
 caffe::SolverAction::Enum GetRequestedAction(const std::string& flag_value) {
   if (flag_value == "stop") {
@@ -306,7 +304,7 @@ RegisterBrewFunction(time);
 int main(int argc, char** argv) {
   // Print output to stderr (while still logging).
   FLAGS_alsologtostderr = 1;
-    // Set version
+  // Set version
   gflags::SetVersionString(AS_STRING(CAFFE_VERSION));
   // Usage message.
   gflags::SetUsageMessage("command line brew\n"

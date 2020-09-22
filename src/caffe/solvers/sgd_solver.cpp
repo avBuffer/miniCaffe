@@ -179,13 +179,13 @@ void SGDSolver<Dtype>::ComputeUpdateValue(int param_id, Dtype rate) {
   
   // Compute the update to history, then copy it to the parameter diff.
   switch (Caffe::mode()) {
-  case Caffe::CPU: {
-    caffe_cpu_axpby(net_params[param_id]->count(), local_rate, net_params[param_id]->cpu_diff(), momentum, history_[param_id]->mutable_cpu_data());
-    caffe_copy(net_params[param_id]->count(), history_[param_id]->cpu_data(), net_params[param_id]->mutable_cpu_diff());
-    break;
-  }
-  default:
-    LOG(FATAL) << "Unknown caffe mode: " << Caffe::mode();
+    case Caffe::CPU: {
+      caffe_cpu_axpby(net_params[param_id]->count(), local_rate, net_params[param_id]->cpu_diff(), momentum, history_[param_id]->mutable_cpu_data());
+      caffe_copy(net_params[param_id]->count(), history_[param_id]->cpu_data(), net_params[param_id]->mutable_cpu_diff());
+      break;
+    }
+    default:
+      LOG(FATAL) << "Unknown caffe mode: " << Caffe::mode();
   }
 }
 

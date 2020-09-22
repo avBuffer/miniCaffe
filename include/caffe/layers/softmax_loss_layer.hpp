@@ -51,7 +51,6 @@ class SoftmaxWithLossLayer : public LossLayer<Dtype> {
   /* @brief Computes the softmax loss error gradient w.r.t. the predictions.
    * Gradients cannot be computed with respect to the label inputs (bottom[1]),
    * so this method ignores bottom[1] and requires !propagate_down[1], crashing if propagate_down[1] is set.
-   *
    * @param top output Blob vector (length 1), providing the error gradient with respect to the outputs
    *   -# @f$ (1 \times 1 \times 1 \times 1) @f$
    *      This Blob's diff will simply contain the loss_weight* @f$ \lambda @f$,

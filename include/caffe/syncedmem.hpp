@@ -40,8 +40,7 @@ class SyncedMemory {
   SyncedHead head_;
   bool own_cpu_data_;
   bool cpu_malloc_use_cuda_;
-  int device_;
-
+ 
   DISABLE_COPY_AND_ASSIGN(SyncedMemory);
 };  // class SyncedMemory
 

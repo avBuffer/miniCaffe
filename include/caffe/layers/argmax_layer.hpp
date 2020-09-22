@@ -41,9 +41,8 @@ class ArgMaxLayer : public Layer<Dtype> {
    *      the computed outputs @f$ y_n = \arg\max\limits_i x_{ni} @f$ (for @f$ K = 1 @f$). */
   virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
   /// @brief Not implemented (non-differentiable function)
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top, const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-    NOT_IMPLEMENTED;
-  }
+  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top, const vector<bool>& propagate_down, 
+                            const vector<Blob<Dtype>*>& bottom) { NOT_IMPLEMENTED; }
 
   bool out_max_val_;
   size_t top_k_;

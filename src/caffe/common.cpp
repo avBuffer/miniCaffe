@@ -62,10 +62,7 @@ class Caffe::RNG::Generator {
  public:
   Generator() : rng_(new caffe::rng_t(cluster_seedgen())) {}
   explicit Generator(unsigned int seed) : rng_(new caffe::rng_t(seed)) {}
-  
-  caffe::rng_t* rng() { 
-    return rng_.get(); 
-  }
+  caffe::rng_t* rng() { return rng_.get(); }
  
  private:
   shared_ptr<caffe::rng_t> rng_;

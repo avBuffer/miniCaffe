@@ -5,7 +5,6 @@ USE_OPENCV := 1
 
 # BLAS choice:
 # atlas for ATLAS (default)
-# open for OpenBlas
 BLAS := atlas
 
 # Custom (ATLAS/OpenBLAS) include and lib directories.
@@ -157,7 +156,6 @@ LIBRARIES += glog gflags protobuf boost_system boost_filesystem m
 
 # handle IO dependencies
 USE_LMDB ?= 1
-# This code is taken from https://github.com/sh1r0/caffe-android-lib
 USE_OPENCV ?= 1
 
 ifeq ($(USE_LMDB), 1)
@@ -176,6 +174,7 @@ WARNINGS := -Wall -Wno-sign-compare
 ALL_BUILD_DIRS := $(sort $(BUILD_DIR) $(addprefix $(BUILD_DIR)/, $(SRC_DIRS)) \
 	$(LIB_BUILD_DIR) $(LINT_OUTPUT_DIR) $(PROTO_BUILD_INCLUDE_DIR))
 
+
 ##############################
 # Configure build
 ##############################
@@ -191,6 +190,7 @@ endif
 # We will also explicitly add stdc++ to the link target.
 LIBRARIES += boost_thread stdc++
 VERSIONFLAGS += -Wl,-soname,$(DYNAMIC_VERSIONED_NAME_SHORT) -Wl,-rpath,$(ORIGIN)/../lib
+ORIGIN := \$$ORIGIN
 
 # Static linking
 ifneq (,$(findstring clang++,$(CXX)))
@@ -205,7 +205,6 @@ endif
 # Debugging
 ifeq ($(DEBUG), 1)
 	COMMON_FLAGS += -DDEBUG -g -O0
-	NVCCFLAGS += -G
 else
 	COMMON_FLAGS += -DNDEBUG -O2
 endif
@@ -217,10 +216,10 @@ endif
 
 ifeq ($(USE_LMDB), 1)
 	COMMON_FLAGS += -DUSE_LMDB
-ifeq ($(ALLOW_LMDB_NOLOCK), 1)
-	COMMON_FLAGS += -DALLOW_LMDB_NOLOCK
 endif
 
+ifeq ($(ALLOW_LMDB_NOLOCK), 1)
+	COMMON_FLAGS += -DALLOW_LMDB_NOLOCK
 endif
 
 # CPU-only configuration
@@ -262,13 +261,9 @@ LDFLAGS += $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_CONFIG) \
 
 # 'superclean' target recursively* deletes all files ending with an extension
 # in $(SUPERCLEAN_EXTS) below.  This may be useful if you've built older
-# versions of Caffe that do not place all generated files in a location known
-# to the 'clean' target.
-#
+# versions of Caffe that do not place all generated files in a location known to the 'clean' target.
 # 'supercleanlist' will list the files to be deleted by make superclean.
-#
-# * Recursive with the exception that symbolic links are never followed, per the
-# default behavior of 'find'.
+# * Recursive with the exception that symbolic links are never followed, per the default behavior of 'find'.
 SUPERCLEAN_EXTS := .so .a .o .bin .pb.cc .pb.h
 
 # Set the sub-targets of the 'everything' target.
@@ -351,15 +346,12 @@ $(STATIC_NAME): $(OBJS) | $(LIB_BUILD_DIR)
 
 $(BUILD_DIR)/%.o: %.cpp $(PROTO_GEN_HEADER) | $(ALL_BUILD_DIRS)
 	@ echo CXX $<
-	$(Q)$(CXX) $< $(CXXFLAGS) -c -o $@ 2> $@.$(WARNS_EXT) \
-		|| (cat $@.$(WARNS_EXT); exit 1)
+	$(Q)$(CXX) $< $(CXXFLAGS) -c -o $@ 2> $@.$(WARNS_EXT) || (cat $@.$(WARNS_EXT); exit 1)
 	@ cat $@.$(WARNS_EXT)
 
-$(PROTO_BUILD_DIR)/%.pb.o: $(PROTO_BUILD_DIR)/%.pb.cc $(PROTO_GEN_HEADER) \
-		| $(PROTO_BUILD_DIR)
+$(PROTO_BUILD_DIR)/%.pb.o: $(PROTO_BUILD_DIR)/%.pb.cc $(PROTO_GEN_HEADER) | $(PROTO_BUILD_DIR)
 	@ echo CXX $<
-	$(Q)$(CXX) $< $(CXXFLAGS) -c -o $@ 2> $@.$(WARNS_EXT) \
-		|| (cat $@.$(WARNS_EXT); exit 1)
+	$(Q)$(CXX) $< $(CXXFLAGS) -c -o $@ 2> $@.$(WARNS_EXT) || (cat $@.$(WARNS_EXT); exit 1)
 	@ cat $@.$(WARNS_EXT)
 
 # Target for extension-less symlinks to tool binaries with extension '*.bin'.
@@ -370,17 +362,14 @@ $(TOOL_BUILD_DIR)/%: $(TOOL_BUILD_DIR)/%.bin | $(TOOL_BUILD_DIR)
 
 $(TOOL_BINS): %.bin : %.o | $(DYNAMIC_NAME)
 	@ echo CXX/LD -o $@
-	$(Q)$(CXX) $< -o $@ $(LINKFLAGS) -l$(LIBRARY_NAME) $(LDFLAGS) \
-		-Wl,-rpath,$(BUILD_DIR)/lib
+	$(Q)$(CXX) $< -o $@ $(LINKFLAGS) -l$(LIBRARY_NAME) $(LDFLAGS) -Wl,-rpath,$(ORIGIN)/../lib
 
 $(EXAMPLE_BINS): %.bin : %.o | $(DYNAMIC_NAME)
 	@ echo CXX/LD -o $@
-	$(Q)$(CXX) $< -o $@ $(LINKFLAGS) -l$(LIBRARY_NAME) $(LDFLAGS) \
-		-Wl,-rpath,$(BUILD_DIR)/lib
+	$(Q)$(CXX) $< -o $@ $(LINKFLAGS) -l$(LIBRARY_NAME) $(LDFLAGS) -Wl,-rpath,$(ORIGIN)/../../lib
 
 proto: $(PROTO_GEN_CC) $(PROTO_GEN_HEADER)
-$(PROTO_BUILD_DIR)/%.pb.cc $(PROTO_BUILD_DIR)/%.pb.h : \
-		$(PROTO_SRC_DIR)/%.proto | $(PROTO_BUILD_DIR)
+$(PROTO_BUILD_DIR)/%.pb.cc $(PROTO_BUILD_DIR)/%.pb.h : $(PROTO_SRC_DIR)/%.proto | $(PROTO_BUILD_DIR)
 	@ echo PROTOC $<
 	$(Q)protoc --proto_path=$(PROTO_SRC_DIR) --cpp_out=$(PROTO_BUILD_DIR) $<
 

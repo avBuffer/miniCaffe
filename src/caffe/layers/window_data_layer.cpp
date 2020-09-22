@@ -402,7 +402,7 @@ void WindowDataLayer<Dtype>::load_batch(Batch<Dtype>* batch) {
       // get window label
       top_label[item_id] = window[WindowDataLayer<Dtype>::LABEL];
 
-      #if 1
+      #if 0
       // useful debugging code for dumping transformed windows to disk
       string file_id;
       std::stringstream ss;

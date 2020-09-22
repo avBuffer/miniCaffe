@@ -6,7 +6,7 @@
 namespace caffe {
 
 Timer::Timer() : initted_(false), running_(false), has_run_at_least_once_(false) { Init(); }
-Timer::~Timer() {}
+Timer::~Timer() { }
 
 
 void Timer::Start() {

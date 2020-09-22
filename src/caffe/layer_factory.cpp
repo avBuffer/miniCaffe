@@ -33,6 +33,7 @@ shared_ptr<Layer<Dtype> > GetConvolutionLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(Convolution, GetConvolutionLayer);
 
 
@@ -70,6 +71,7 @@ shared_ptr<Layer<Dtype> > GetPoolingLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(Pooling, GetPoolingLayer);
 
 
@@ -89,6 +91,7 @@ shared_ptr<Layer<Dtype> > GetLRNLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(LRN, GetLRNLayer);
 
 
@@ -99,7 +102,6 @@ shared_ptr<Layer<Dtype> > GetReLULayer(const LayerParameter& param) {
   if (engine == ReLUParameter_Engine_DEFAULT) {
     engine = ReLUParameter_Engine_CAFFE;
   }
-  
   if (engine == ReLUParameter_Engine_CAFFE) {
     return shared_ptr<Layer<Dtype> >(new ReLULayer<Dtype>(param));
   } else {
@@ -107,6 +109,7 @@ shared_ptr<Layer<Dtype> > GetReLULayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(ReLU, GetReLULayer);
 
 
@@ -125,6 +128,7 @@ shared_ptr<Layer<Dtype> > GetSigmoidLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(Sigmoid, GetSigmoidLayer);
 
 
@@ -142,6 +146,7 @@ shared_ptr<Layer<Dtype> > GetSoftmaxLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(Softmax, GetSoftmaxLayer);
 
 
@@ -160,6 +165,7 @@ shared_ptr<Layer<Dtype> > GetTanHLayer(const LayerParameter& param) {
     throw;  // Avoids missing return warning
   }
 }
+
 REGISTER_LAYER_CREATOR(TanH, GetTanHLayer);
 
 // Layers that use their constructor as their default creator should be

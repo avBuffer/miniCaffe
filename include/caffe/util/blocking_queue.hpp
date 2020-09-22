@@ -24,8 +24,7 @@ class BlockingQueue {
   size_t size() const;
 
  protected:
-  /* Move synchronization fields out instead of including boost/thread.hpp to avoid a boost/NVCC issues (#1009, #1010) on OSX. 
-     Also fails on Linux CUDA 7.0.18. */
+  /* Move synchronization fields out instead of including boost/thread.hpp to avoid a boost issues (#1009, #1010) on OSX. */
   class sync;
 
   std::queue<T> queue_;

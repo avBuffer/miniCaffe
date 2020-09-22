@@ -23,7 +23,7 @@ void ConcatLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom, const vecto
     CHECK_GE(concat_axis_, 0) << "casting concat_dim from uint32 to int32 produced negative result; " <<
         "concat_dim must satisfy 0 <= concat_dim < " << kMaxBlobAxes;
     CHECK_LT(concat_axis_, num_axes) << "concat_dim out of range.";
-    } else {
+  } else {
     concat_axis_ = bottom[0]->CanonicalAxisIndex(concat_param.axis());
   }
 

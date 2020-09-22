@@ -14,7 +14,7 @@ namespace caffe {
  *   Caffe convolves by reduction to matrix multiplication. This achieves
  *   high-throughput and generality of input and filter dimensions but comes at
  *   the cost of memory for matrices. This makes use of efficiency in BLAS.
- *
+
  *   The input is "im2col" transformed to a channel K' x H x W data matrix
  *   for multiplication with the N x K' x H x W filter matrix to yield a
  *   N' x H x W output matrix that is then "col2im" restored. K' is the

@@ -12,12 +12,8 @@
 #include "caffe/util/math_functions.hpp"
 
 
-/* Forward declare boost::thread instead of including boost/thread.hpp to avoid a boost/NVCC issues (#1009, #1010) on OSX. */
-namespace boost { 
-  class mutex; 
-}
-
-
+/* Forward declare boost::thread instead of including boost/thread.hpp to avoid a boost issues (#1009, #1010) on OSX. */
+namespace boost { class mutex; }
 namespace caffe {
 
 /* @brief An interface for the units of computation which can be composed into a Net.
@@ -34,8 +30,7 @@ class Layer {
       // Set phase and copy blobs (if there are any).
       phase_ = param.phase();
       if (layer_param_.blobs_size() > 0) {
-        blobs_.resize(layer_param_.blobs_size());
-        
+        blobs_.resize(layer_param_.blobs_size());        
         for (int i = 0; i < layer_param_.blobs_size(); ++i) {
           blobs_[i].reset(new Blob<Dtype>());
           blobs_[i]->FromProto(layer_param_.blobs(i));
@@ -281,11 +276,11 @@ inline Dtype Layer<Dtype>::Forward(const vector<Blob<Dtype>*>& bottom, const vec
 template <typename Dtype>
 inline void Layer<Dtype>::Backward(const vector<Blob<Dtype>*>& top, const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
   switch (Caffe::mode()) {
-  case Caffe::CPU:
-    Backward_cpu(top, propagate_down, bottom);
-    break;
-  default:
-    LOG(FATAL) << "Unknown caffe mode.";
+    case Caffe::CPU:
+      Backward_cpu(top, propagate_down, bottom);
+      break;
+    default:
+      LOG(FATAL) << "Unknown caffe mode.";
   }
 }
 

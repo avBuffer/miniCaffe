@@ -49,7 +49,6 @@ inline void MakeTempFilename(string* temp_filename) {
 }
 
 bool ReadProtoFromTextFile(const char* filename, Message* proto);
-
 inline bool ReadProtoFromTextFile(const string& filename, Message* proto) {
   return ReadProtoFromTextFile(filename.c_str(), proto);
 }
@@ -83,8 +82,7 @@ inline void ReadProtoFromBinaryFileOrDie(const string& filename, Message* proto)
 
 
 void WriteProtoToBinaryFile(const Message& proto, const char* filename);
-inline void WriteProtoToBinaryFile(
-    const Message& proto, const string& filename) {
+inline void WriteProtoToBinaryFile(const Message& proto, const string& filename) {
   WriteProtoToBinaryFile(proto, filename.c_str());
 }
 

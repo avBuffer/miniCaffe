@@ -121,16 +121,14 @@ class PositiveUnitballFiller : public Filler<Dtype> {
 
 /* @brief Fills a Blob with values @f$ x \sim U(-a, +a) @f$ where @f$ a @f$ is
  *        set inversely proportional to number of incoming nodes, outgoing nodes, or their average.
- *
  * A Filler based on the paper [Bengio and Glorot 2010]: Understanding
  * the difficulty of training deep feedforward neuralnetworks.
- *
+ 
  * It fills the incoming matrix by randomly sampling uniform data from [-scale,
  * scale] where scale = sqrt(3 / n) where n is the fan_in, fan_out, or their
  * average, depending on the variance_norm option. You should make sure the
- * input blob has shape (num, a, b, c) where a * b * c = fan_in and num * b * c
- * = fan_out. Note that this is currently not the case for inner product layers.
- *
+ * input blob has shape (num, a, b, c) where a * b * c = fan_in and num * b * c = fan_out.
+ * Note that this is currently not the case for inner product layers.
  * TODO(dox): make notation in above comment consistent with rest & use LaTeX. */
 template <typename Dtype>
 class XavierFiller : public Filler<Dtype> {
@@ -160,15 +158,11 @@ class XavierFiller : public Filler<Dtype> {
 /* @brief Fills a Blob with values @f$ x \sim N(0, \sigma^2) @f$ where @f$ \sigma^2 @f$ is set inversely 
  *        proportional to number of incoming nodes, outgoing nodes, or their average.
  * A Filler based on the paper [He, Zhang, Ren and Sun 2015]: Specifically accounts for ReLU nonlinearities.
- *
- * Aside: for another perspective on the scaling factor, see the derivation of
- * [Saxe, McClelland, and Ganguli 2013 (v3)].
- *
- * It fills the incoming matrix by randomly sampling Gaussian data with std =
- * sqrt(2 / n) where n is the fan_in, fan_out, or their average, depending on
- * the variance_norm option. You should make sure the input blob has shape (num,
- * a, b, c) where a * b * c = fan_in and num * b * c = fan_out. Note that this
- * is currently not the case for inner product layers. */
+ * Aside: for another perspective on the scaling factor, see the derivation of [Saxe, McClelland, and Ganguli 2013 (v3)].
+
+ * It fills the incoming matrix by randomly sampling Gaussian data with std = sqrt(2 / n) where n is the fan_in,
+ * fan_out, or their average, depending on the variance_norm option. You should make sure the input blob has shape (num,
+ * a, b, c) where a * b * c = fan_in and num * b * c = fan_out. Note that this is currently not the case for inner product layers. */
 template <typename Dtype>
 class MSRAFiller : public Filler<Dtype> {
  public:

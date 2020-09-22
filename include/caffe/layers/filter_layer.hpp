@@ -33,8 +33,7 @@ class FilterLayer : public Layer<Dtype> {
    *        the filtered output @f$ x_1 @f$ where S is the number of items that haven't been filtered
    *      @f$ (S \times C \times H \times W) @f$
    *        the filtered output @f$ x_K @f$ where S is the number of items that haven't been filtered */
-  virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
+  virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
 
   /* @brief Computes the error gradient w.r.t. the forwarded inputs.
    * @param top output Blob vector (length 1+), providing the error gradient with respect to the outputs

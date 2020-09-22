@@ -41,7 +41,7 @@ int feature_extraction_pipeline(int argc, char** argv) {
     
     "Usage: extract_features pretrained_net_param feature_extraction_proto_file"
     "  extract_feature_blob_name1[,name2,...] save_feature_dataset_name1[,name2,...]"
-    "  num_mini_batches db_type [CPU] [DEVICE_ID=0]\n"
+    "  num_mini_batches db_type [CPU]\n"
     
     "Note: you can extract multiple features in one pass by specifying"
     " multiple feature blob names and dataset names separated by ','."
@@ -51,7 +51,7 @@ int feature_extraction_pipeline(int argc, char** argv) {
 
   int arg_pos = num_required_args;
   arg_pos = num_required_args;
-  LOG(INFO)<< "Use CPU";
+  LOG(INFO)<< "Using CPU";
   Caffe::set_mode(Caffe::CPU);
 
   arg_pos = 0;  // the name of the executable

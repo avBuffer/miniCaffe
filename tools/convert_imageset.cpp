@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
       string fn = lines[line_id].first;
       std::cout << "line_id=" << line_id << " fn=" << fn << std::endl;
 
-      size_t p = fn.rfind('.');      
+      size_t p = fn.rfind('.');
       if (p == fn.npos) LOG(WARNING) << "Failed to guess the encoding of '" << fn << "'";
       enc = fn.substr(p + 1);
       std::transform(enc.begin(), enc.end(), enc.begin(), ::tolower);
